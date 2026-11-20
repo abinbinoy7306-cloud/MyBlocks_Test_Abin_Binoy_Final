@@ -73,6 +73,8 @@ The workflow in `.github/workflows/deploy.yml` publishes the frontend to GitHub 
 
 GitHub Pages hosts only the static frontend. Deploy the Node.js backend and MySQL database separately, then point `VITE_API_BASE_URL` at that backend. The backend must allow the GitHub Pages origin in its CORS configuration.
 
+For the backend deployment, set `CORS_ORIGINS=https://abinbinoy7306-cloud.github.io` (comma-separate additional frontend origins if needed).
+
 ## Features
 
 - Settings → API Keys: multiple keys, task-type assignment, active-key selection, token accounting, and automatic fallback.

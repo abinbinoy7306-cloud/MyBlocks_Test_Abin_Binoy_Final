@@ -9,9 +9,14 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(helmet());
+const configuredOrigins = (process.env.CORS_ORIGINS || process.env.FRONTEND_URL || '')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
 const allowedOrigins = new Set([
   'http://localhost:5173',
   'http://127.0.0.1:5173',
+  ...configuredOrigins,
 ]);
 app.use(cors({
   origin: (origin, callback) => {
