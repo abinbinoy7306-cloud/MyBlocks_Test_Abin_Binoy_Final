@@ -29,7 +29,36 @@ cd ..\backend
 Copy-Item .env.example .env
 ```
 
-Edit `backend/.env` with the local MySQL database name, user, password, and strong JWT secrets. Never commit `.env`.
+Edit `backend/.env` with the local MySQL database name, user, password, strong JWT secrets, and allowed frontend origins:
+
+```env
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=nclc_crm
+DB_USER=root
+DB_PASSWORD=your_local_database_password
+JWT_ACCESS_SECRET=generate_a_long_random_value
+JWT_REFRESH_SECRET=generate_a_different_long_random_value
+CORS_ORIGINS=http://localhost:5173
+```
+
+Never commit `.env` or place real credentials in the repository. The tracked `backend/.env.example` and `frontend/.env.example` files are safe templates only.
+
+### Deployment environment variables
+
+For a deployed backend, add the backend variables from `backend/.env.example` in the hosting provider's environment settings. Set `CORS_ORIGINS` to the public frontend origin, for example:
+
+```env
+CORS_ORIGINS=https://abinbinoy7306-cloud.github.io
+```
+
+For the GitHub Pages frontend, add this repository secret under **Settings → Secrets and variables → Actions**:
+
+```text
+VITE_API_BASE_URL=https://your-deployed-backend.example.com/api
+```
+
+Replace the example URL with the actual public backend URL. `VITE_API_BASE_URL` is embedded into the frontend during the GitHub Actions build. Do not put database passwords, JWT secrets, or API keys in frontend variables.
 
 ### 3. Initialize the database
 
