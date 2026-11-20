@@ -6,6 +6,8 @@ const api = axios.create({
   withCredentials: true,
 });
 
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+
 // Request interceptor: add Bearer token
 api.interceptors.request.use((config) => {
   const token = useAuthStore.getState().accessToken;
@@ -47,7 +49,7 @@ api.interceptors.response.use(
       const { refreshToken, setAccessToken, logout } = useAuthStore.getState();
 
       try {
-        const res = await axios.post('http://localhost:5000/api/auth/refresh', {
+        const res = await axios.post(`${apiBaseUrl}/auth/refresh`, {
           refreshToken,
         });
         const newToken = res.data?.data?.accessToken || res.data?.accessToken;
@@ -58,7 +60,7 @@ api.interceptors.response.use(
       } catch (refreshError) {
         processQueue(refreshError, null);
         logout();
-        window.location.href = '/login';
+        window.location.href = `${import.meta.env.BASE_URL}login`;
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
