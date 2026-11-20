@@ -69,7 +69,7 @@ Open [http://localhost:5173](http://localhost:5173). The API health check is [ht
 
 ## GitHub Pages deployment
 
-The workflow in `.github/workflows/deploy.yml` publishes the frontend to GitHub Pages whenever `master` is updated. In the repository settings, enable **Pages → Build and deployment → GitHub Actions** and add the repository secret `VITE_API_BASE_URL` containing the deployed backend URL, for example `https://api.example.com/api`.
+The workflow in `.github/workflows/deploy.yml` publishes the frontend to GitHub Pages whenever `master` is updated. Before the first deployment, open the repository [Pages settings](https://github.com/abinbinoy7306-cloud/MyBlocks_Test_Abin_Binoy_Final/settings/pages) and select **GitHub Actions** under **Build and deployment**. Also add the repository secret `VITE_API_BASE_URL` containing the deployed backend URL, for example `https://api.example.com/api`.
 
 GitHub Pages hosts only the static frontend. Deploy the Node.js backend and MySQL database separately, then point `VITE_API_BASE_URL` at that backend. The backend must allow the GitHub Pages origin in its CORS configuration.
 
